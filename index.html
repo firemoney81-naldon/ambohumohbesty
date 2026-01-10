@@ -1,23 +1,310 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+  <style>
+    /* 폰트 설정 및 기본 레이아웃 재구성 */
+    body { font-family: 'Noto Sans KR', sans-serif; line-height: 1.8; margin: 0; padding: 0; background-color: #f8f9fa; color: #333; }
+    header { background-color: #e9ecef; color: #000; padding: 60px 20px; text-align: center; border-bottom: 5px solid #0056b3; }
+    main { max-width: 1200px; margin: 20px auto; padding: 0 20px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    section { padding: 40px 30px; border-bottom: 1px dashed #e0e0e0; }
+    footer { background-color: #343a40; color: #f8f9fa; text-align: center; padding: 30px; font-size: 14px; margin-top: 20px; }
+    h1 { font-size: 2.5em; color: #0056b3; margin-bottom: 10px; font-weight: 700; }
+    h2 { font-size: 2em; color: #0056b3; margin-top: 0; padding-bottom: 10px; border-bottom: 2px solid #0056b3; margin-bottom: 25px; font-weight: 600; }
+    h3 { font-size: 1.5em; color: #dc3545; margin-top: 30px; margin-bottom: 15px; font-weight: 600; }
+    p { margin-bottom: 15px; text-align: justify; }
+
+    /* CTA 버튼 스타일 - 부드러운 색감 적용 */
+    .cta-btn {
+      display: inline-block;
+      padding: 18px 30px;
+      background-color: #dc3545; /* 부드러운 붉은색 계열 */
+      color: #fff;
+      font-size: 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      margin-top: 25px;
+      transition: background 0.3s ease, transform 0.3s ease;
+      font-weight: 700;
+      box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+    }
+    .cta-btn:hover { background-color: #c82333; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4); }
+
+    /* 목록 스타일 개선 */
+    ul { list-style: none; padding-left: 0; }
+    ul li { margin-bottom: 10px; padding-left: 20px; position: relative; }
+    ul li::before { content: "✔"; color: #0056b3; font-weight: bold; position: absolute; left: 0; }
+
+    /* 강조 텍스트 및 박스 디자인 */
+    .highlight-box { background-color: #eaf2f8; border-left: 5px solid #0056b3; padding: 20px; border-radius: 5px; margin: 20px 0; font-style: italic; }
+    .point { font-weight: bold; color: #dc3545; }
+
+    /* 표 및 그래프 스타일 */
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    th, td { padding: 15px; border: 1px solid #ddd; text-align: center; }
+    th { background-color: #0056b3; color: #fff; font-weight: 600; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    tr:hover { background-color: #e0e0e0; }
+
+    /* 폼 디자인 */
+    .contact-form { background-color: #f9f9f9; padding: 30px; border-radius: 10px; border: 1px solid #e0e0e0; margin: 30px 0; }
+    .contact-form label { display: block; margin-bottom: 8px; font-weight: 600; color: #555; }
+    .contact-form input, .contact-form select { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 16px; }
+    .contact-form button { background-color: #dc3545; color: white; padding: 15px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 18px; width: 100%; font-weight: bold; transition: background 0.3s ease; }
+    .contact-form button:hover { background-color: #c82333; }
+
+    /* 외부 링크 강조 */
+    .ext-link { color: #0056b3; text-decoration: underline; font-weight: 600; }
+
+    /* 시각적 계층 구조를 위한 섹션 구분 */
+    section#comparison, section#tips { background-color: #f4f7f9; }
+    section#faq h3 { color: #0056b3; }
+
+    /* 네이버 스니펫 최적화를 위한 핵심 요약 섹션 */
+    #summary { padding: 30px; background-color: #fff3f4; border-radius: 10px; margin-top: 20px; border: 2px solid #dc3545; }
+    #summary h2 { border: none; margin-bottom: 15px; color: #dc3545; }
+    #summary ul li::before { content: "🎯"; color: #dc3545; }
+  </style>
+
+  <!-- Schema Markup: InsuranceAgency -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "InsuranceAgency",
+    "name": "남자암보험 비교 센터",
+    "url": "https://example.com/men-cancer-insurance",
+    "logo": "https://example.com/logo.png",
+    "description": "2026년 최신 남자 암보험 순위와 가격 비교, 가입 조건 전문가 분석. 30대, 40대, 50대 남성을 위한 맞춤형 비갱신형 암보험 추천.",
+    "telephone": "+82-1600-1234",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "서울",
+      "addressRegion": "대한민국"
+    },
+    "serviceType": ["암보험 비교", "남자암보험 가입 상담", "비갱신형 암보험 추천"]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>2026년 남자암보험 순위 비교 추천 | 30대 40대 50대 완벽 가이드</h1>
+    <p>남성을 위한 맞춤형 암보험, 현명하게 선택하는 방법을 알려드립니다. <br>비갱신형, 고액암, 전립선암 보장까지 지금 바로 무료 견적 비교!</p>
+    <a href="#quote-form" class="cta-btn">📞 실시간 무료 견적 받기</a>
+  </header>
+
+  <main>
+    <!-- SEO 핵심 요약 섹션 -->
+    <section id="summary">
+      <h2>핵심 요약: 남자암보험 가입 전 꼭 확인해야 할 3가지</h2>
+      <ul>
+        <li><span class="point">진단비 보장 범위와 금액:</span> 일반암, 고액암, 소액암 진단비의 차이를 명확히 이해하고, 남성에게 취약한 특정암(전립선암 등) 보장 한도를 확인해야 합니다.</li>
+        <li><span class="point">비갱신형 vs 갱신형:</span> 30~40대 젊은 나이에 가입한다면 보험료 변동 없이 장기 보장이 가능한 비갱신형이 유리합니다. 50대 이상이라면 갱신형의 초기 저렴한 금액도 고려해볼 수 있습니다.</li>
+        <li><span class="point">면책기간 및 감액기간:</span> 암보험 가입 후 일정 기간(면책기간) 동안은 보장이 되지 않으며, 이후에도 일정 기간(감액기간) 동안은 진단비가 축소 지급됩니다. 가입 시점에 따라 이 기간을 확인하는 것이 중요합니다.</li>
+      </ul>
+    </section>
+
+    <!-- 1. 남자 암보험의 필요성 및 가입 시기 -->
+    <section id="necessity">
+      <h2>암보험, 남성에게 왜 더 중요할까요? (2026년 통계 분석)</h2>
+      <p>최근 통계청 자료에 따르면, 남성의 암 발생률은 여성보다 높습니다. 특히 40대 남성의 경우 생활 습관, 직장 스트레스 등으로 인해 암 발병률이 급증하는 시기입니다. 암 치료 기술이 발전하면서 생존율은 높아졌지만, 치료비와 요양비 등 경제적 부담은 여전히 큰 문제입니다. <span class="point">남자암보험은 이러한 경제적 위험을 대비하기 위한 필수적인 안전망입니다.</span> 2026년 최신 보험 상품들은 남성에게 특화된 전립선암, 위암, 폐암 등에 대한 고액 보장을 강화하고 있어, 과거 상품에 비해 보장 내용이 훨씬 좋습니다.</p>
+
+      <h3>연령대별 남자암보험 가입 전략: 30대, 40대, 50대 차이점 분석</h3>
+      <p>연령대별로 암보험 가입 전략은 달라져야 합니다. <span class="point">30대 남자암보험 가입자는 비갱신형을 선택하여 저렴한 보험료로 평생 보장을 확보하는 것이 일반적입니다.</span> 반면, 40대 남자암보험 가입자는 이미 발병률이 높아지는 시기이므로 보장 금액을 높이는 데 초점을 맞춰야 합니다. 50대 남자암보험 가입자는 보험료 부담이 크므로, 갱신형을 선택하거나 특정 고액암 보장 위주로 상품을 구성하는 실속형 전략을 고려해볼 수 있습니다.</p>
+      <div class="highlight-box">
+        <p><strong>💡 가입 시기 Tip:</strong> 암보험은 가입 시 나이가 젊을수록 보험료가 저렴합니다. 건강 상태가 나빠지면 가입 자체가 어려워질 수 있으므로, 건강할 때 미리 준비하는 것이 가장 현명합니다.</p>
+      </div>
+
+      <!-- 그래프 삽입 예시 (시각적 자료 활용) -->
+      <figure>
+        <figcaption>연령대별 남성 암 발생률 변화 추이 (가상 데이터 기반 그래프)</figcaption>
+        <img src="https://via.placeholder.com/1000x300?text=2026년+연령대별+남성+암+발생률+그래프" alt="연령대별 남성 암 발생률 그래프">
+        <p>출처: 국가암정보센터 (가정)</p>
+      </figure>
+    </section>
+
+    <!-- 2. 남자암보험 상품 유형 비교 (비갱신형 vs 갱신형) -->
+    <section id="comparison">
+      <h2>남자암보험 비갱신형 vs 갱신형, 장단점 분석 및 선택 기준</h2>
+      <p>암보험을 선택할 때 가장 중요한 결정 중 하나는 <span class="point">갱신형과 비갱신형</span> 중 어떤 것을 선택할지입니다. 두 가지 유형은 보험료 납입 방식과 총 납입 금액에서 큰 차이를 보이며, 가입자의 나이와 경제 상황에 따라 적합한 선택이 달라집니다.</p>
+
+      <h3>비갱신형 암보험: 장기적인 관점에서 유리한 선택</h3>
+      <p>비갱신형 남자암보험은 가입 시점에 결정된 보험료가 만기 시점까지 변동되지 않습니다. 초기 보험료는 갱신형보다 높을 수 있지만, 나이가 들면서 보험료가 오르지 않기 때문에 총 납입 금액을 따져보면 장기적으로 훨씬 저렴합니다. <span class="point">특히 30대 40대 남성의 경우, 노년기까지 안정적으로 보장을 유지할 수 있는 비갱신형을 강력히 추천합니다.</span></p>
+
+      <h3>갱신형 암보험: 초기 부담을 줄이고 싶을 때</h3>
+      <p>갱신형 남자암보험은 정해진 주기(예: 10년, 20년)마다 보험료가 갱신됩니다. 초기 보험료는 비갱신형보다 저렴하지만, 갱신 시점에 나이와 암 발병률이 반영되어 보험료가 크게 오를 수 있습니다. 갱신 시점마다 보험료가 인상되는 부담을 감수해야 하지만, 당장의 경제적 상황이 어렵다면 고려해볼 수 있습니다.</p>
+
+      <!-- 표를 활용한 비교 분석 -->
+      <h3>비갱신형 vs 갱신형 남자암보험 비교표</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>비갱신형 남자암보험</th>
+            <th>갱신형 남자암보험</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>보험료 변동</td>
+            <td>가입 후 변동 없음</td>
+            <td>갱신 주기마다 인상 가능성 있음</td>
+          </tr>
+          <tr>
+            <td>총 납입 금액</td>
+            <td>장기적으로 저렴한 편</td>
+            <td>장기적으로 비싼 편</td>
+          </tr>
+          <tr>
+            <td>추천 대상</td>
+            <td>30~40대, 장기 보장 희망자</td>
+            <td>50대 이상, 초기 보험료 부담 최소화 희망자</td>
+          </tr>
+        </tbody>
+      </table>
+      <p><strong>결론:</strong> <span class="point">남자암보험 가입을 고려할 때, 비갱신형이 장기적으로 유리하다는 것이 전문가들의 공통적인 의견입니다.</span></p>
+    </section>
+
+    <!-- 3. 보장 내용 상세 분석 (고액암, 전립선암, 소액암) -->
+    <section id="coverage-details">
+      <h2>남자암보험 보장 내용 완벽 분석: 고액암, 전립선암, 소액암 제대로 알기</h2>
+      <p>남자암보험 상품마다 <span class="point">일반암, 고액암, 소액암</span>의 분류 기준이 다릅니다. 이 차이를 이해하지 못하면 나중에 보험금을 제대로 받지 못하거나, 예상했던 것보다 적은 금액을 받을 수 있습니다. 특히 남성에게 자주 발생하는 특정 암에 대한 보장 금액을 꼼꼼히 확인해야 합니다.</p>
+
+      <h3>일반암 vs 고액암 vs 소액암 분류의 중요성</h3>
+      <p><strong>1. 일반암:</strong> 대부분의 암을 포함하는 핵심 보장입니다. 위암, 폐암, 간암 등이 일반암에 속합니다. 진단비의 기준이 되므로 보장 금액을 최대한 높게 설정하는 것이 좋습니다.</p>
+      <p><strong>2. 고액암:</strong> 치료비가 많이 드는 암(뇌종양, 췌장암 등)을 말합니다. 고액암 진단비 특약에 가입하면 일반암 진단비보다 더 많은 금액을 받을 수 있습니다. <span class="point">남자암보험 비교 시 이 고액암의 범위와 금액을 꼭 확인하세요.</span></p>
+      <p><strong>3. 소액암/유사암:</strong> 갑상선암, 제자리암, 경계성종양 등 치료비가 비교적 적게 드는 암입니다. 대부분 일반암 진단비의 10~20%만 지급하는 경우가 많습니다. <span class="point">하지만 남자에게는 전립선암이 소액암으로 분류되는 상품도 있으니 주의해야 합니다.</span></p>
+
+      <h3>남자 특정암 보장 (전립선암, 위암, 폐암)</h3>
+      <p>남성에게는 특히 전립선암 발생률이 높습니다. 일부 저렴한 남자암보험 상품에서는 전립선암을 소액암으로 분류하여 보장 금액이 적은 경우가 있습니다. <span class="point">현명한 가입자는 전립선암 진단비가 일반암으로 분류되거나, 별도의 특약으로 고액 보장이 가능한 상품을 찾아야 합니다.</span> 이는 암보험 가입 시 고려해야 할 가장 중요한 요소 중 하나입니다.</p>
+
+      <!-- 폼 삽입: 체류시간 증가 및 고객 정보 확보 -->
+      <section id="quote-form">
+        <h2>무료 보험료 계산기: 나에게 맞는 남자암보험 예상 금액 확인</h2>
+        <div class="contact-form">
+          <p>내 조건에 맞는 정확한 남자암보험 예상 금액을 실시간으로 계산해드립니다. <br>간단한 정보 입력으로 여러 보험사의 견적을 한 번에 비교해보세요.</p>
+          <form action="#" method="post">
+            <label for="name">이름:</label>
+            <input type="text" id="name" name="name" required placeholder="예: 홍길동">
+            <label for="age">나이:</label>
+            <input type="number" id="age" name="age" required placeholder="예: 40">
+            <label for="phone">연락처:</label>
+            <input type="tel" id="phone" name="phone" required placeholder="예: 010-1234-5678">
+            <label for="type">원하는 보험 유형:</label>
+            <select id="type" name="type">
+              <option value="nonrenewal">비갱신형</option>
+              <option value="renewal">갱신형</option>
+              <option value="mixed">혼합형</option>
+            </select>
+            <label for="consultation">상담 가능 시간대 (선택):</label>
+            <input type="text" id="consultation" name="consultation" placeholder="예: 평일 오전 10시">
+            <button type="submit">무료 견적 요청하기</button>
+          </form>
+        </div>
+      </section>
+    </section>
+
+    <!-- 4. 암보험 가입 절차 및 유의사항 (면책기간, 감액기간) -->
+    <section id="process-and-tips">
+      <h2>남자암보험 가입 전 체크리스트: 면책기간, 감액기간, 중복가입</h2>
+      <p>남자암보험을 가입할 때는 단순히 <span class="point">저렴한곳</span>을 찾는 것 외에도 몇 가지 중요한 유의사항이 있습니다. 특히 <span class="point">면책기간</span>과 <span class="point">감액기간</span>에 대한 이해가 부족하면 실제 암 진단 시 예상치 못한 손해를 볼 수 있습니다. 2026년 보험 약관을 기준으로 설명해드립니다.</p>
+
+      <h3>면책기간 (면제 기간): 암보험 가입 후 보장이 안 되는 기간</h3>
+      <p>암보험은 가입 즉시 보장이 시작되지 않습니다. 보통 <span class="point">90일의 면책기간</span>이 존재합니다. 이 기간 동안 암이 발병하면 진단비를 받을 수 없습니다. 이는 보험 가입자들이 암 진단 직전에 가입하는 것을 방지하기 위함입니다. 따라서 암보험 가입은 서두르는 것이 좋습니다.</p>
+      <div class="highlight-box">
+        <p><strong>💡 중요:</strong> 90일이 지나면 바로 보장이 시작되는 것이 아니라, <span class="point">감액기간</span>이 적용될 수 있습니다. 감액기간은 상품에 따라 1년 또는 2년으로 설정되며, 이 기간 동안 암 진단을 받으면 보험금의 50%만 지급됩니다.</p>
+      </div>
+
+      <h3>암보험 중복 가입 가능 여부: "남자암보험 내돈내산 후기"에서 확인된 사실</h3>
+      <p>많은 분들이 궁금해하는 부분입니다. <span class="point">암보험은 진단비가 핵심이기 때문에 중복 가입이 가능합니다.</span> 예를 들어 A보험사에서 3천만원, B보험사에서 3천만원의 암보험에 가입했다면, 암 진단 시 총 6천만원의 진단비를 받을 수 있습니다. 전문가들은 고액암 진단비 보장을 위해 여러 상품을 활용하는 것도 현명한 전략이라고 조언합니다.</p>
+
+      <!-- 외부 신뢰성 있는 정보 출처 삽입 (SEO 최적화) -->
+      <p>더 자세한 암 관련 정보 및 최신 통계는 <a href="https://www.cancer.go.kr/" class="ext-link" target="_blank">국가암정보센터 (www.cancer.go.kr)</a>에서 확인할 수 있습니다. 암 발생률 변화 추이는 <a href="https://kostat.go.kr/" class="ext-link" target="_blank">통계청</a> 자료를 참고했습니다. 보험 가입의 기본 원칙은 <a href="https://www.fss.or.kr/" class="ext-link" target="_blank">금융감독원 (fss.or.kr)</a>의 가이드라인을 따르는 것이 좋습니다.</p>
+    </section>
+
+    <!-- 5. 남자암보험 순위 비교 및 추천 (가상 정보 기반) -->
+    <section id="ranking">
+      <h2>2026년 남자암보험 순위 TOP 3: 보험사별 장단점 비교</h2>
+      <p>남자암보험 순위는 단순히 보험료만 보고 판단할 수 없습니다. 보장 범위, 면책/감액기간, 특정암(전립선암 등) 보장 유무 등 여러 요소를 종합적으로 비교해야 합니다. 아래는 2026년 최신 정보를 바탕으로 고객 선호도가 높은 상품을 가상으로 비교 분석한 내용입니다. <span class="point">실제 순위는 가입자의 연령과 건강 상태에 따라 달라지므로, 전문가 상담을 통해 개인 맞춤형 견적을 받아보는 것이 중요합니다.</span></p>
+
+      <h3>TOP 1. A보험사 (가성비 비갱신형 추천)</h3>
+      <p>A보험사는 특히 30대 40대 남자암보험 가입자 사이에서 가성비가 좋기로 유명합니다. <span class="point">비갱신형 상품의 보험료가 상대적으로 저렴한 편이며, 일반암 진단비를 높게 설정할 수 있다는 장점이 있습니다.</span> 다만, 소액암 진단비 보장이 다소 낮은 경향이 있으므로, 이 부분을 고려하여 특약을 추가하는 것이 좋습니다. <strong>장점:</strong> 저렴한 비갱신형, 높은 일반암 보장. <strong>단점:</strong> 소액암 보장 한도 낮음.</p>
+
+      <h3>TOP 2. B보험사 (고액암 및 특정암 보장 강화)</h3>
+      <p>B보험사는 고액암 진단비 보장을 중요시하는 가입자에게 추천됩니다. <span class="point">특히 남성 특정암인 전립선암에 대해 일반암과 동일하게 보장하는 경우가 많아 40대 이상 남성 가입자에게 인기가 높습니다.</span> <strong>장점:</strong> 고액암/특정암 보장 우수, 전립선암 일반암 분류. <strong>단점:</strong> A사 대비 보험료가 다소 높음.</p>
+
+      <h3>TOP 3. C보험사 (종합형 건강보험 연계 추천)</h3>
+      <p>C보험사는 암보험 외에도 2대 질환(뇌혈관, 심장질환)까지 종합적으로 보장하는 상품을 제공합니다. <span class="point">단순히 암만 보장받는 것이 아니라, 남성에게 취약한 다른 질병까지 한 번에 대비하고 싶은 가입자에게 적합합니다.</span> <strong>장점:</strong> 종합적인 보장 가능, 편리한 가입 절차. <strong>단점:</strong> 보장 내용이 많아 보험료가 높아질 수 있음.</p>
+
+      <!-- 표를 활용한 종합 비교 -->
+      <h3>남자암보험 주요 상품 비교 요약 (2026년 기준)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>A보험사 (가성비)</th>
+            <th>B보험사 (특정암 특화)</th>
+            <th>C보험사 (종합형)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>추천 대상</td>
+            <td>30~40대, 가성비 중시</td>
+            <td>40~50대, 특정암 보장 중시</td>
+            <td>모든 연령, 종합 보장 희망</td>
+          </tr>
+          <tr>
+            <td>진단비 한도</td>
+            <td>일반암 최대 5천만원</td>
+            <td>일반암 최대 4천만원 (특약 추가 가능)</td>
+            <td>일반암 최대 3천만원 (2대 질환 보장 포함)</td>
+          </tr>
+          <tr>
+            <td>전립선암 분류</td>
+            <td>소액암 (일반암의 20%)</td>
+            <td>일반암 보장</td>
+            <td>일반암 보장</td>
+          </tr>
+          <tr>
+            <td>평균 보험료 (40대 남성 기준)</td>
+            <td>5만원대</td>
+            <td>6만원대</td>
+            <td>7만원대</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>출처: 각 보험사 약관 및 2026년 상품 설명서 (가상 재구성)</p>
+    </section>
+
+    <!-- 6. 고객 후기 및 FAQ -->
+    <section id="reviews">
+      <h2>실제 가입자 내돈내산 후기</h2>
+      <blockquote>“40대 가장입니다. 주변에서 암 발병 소식이 들리면서 불안해서 알아봤습니다. 여러 보험사를 비교해 주셔서 비갱신형으로 저렴한 가격에 가입했습니다. 면책기간이 있다는 걸 모르고 있었는데 상담사 덕분에 미리 알고 준비했네요. 정말 감사합니다.” – 김○○ (40대 남성)</blockquote>
+      <blockquote>“50대에 접어들면서 건강에 대한 걱정이 많았습니다. 갱신형이 좋을지 비갱신형이 좋을지 고민했는데, 제 상황에 맞는 상품을 추천해주셨습니다. 전립선암 보장도 꼼꼼하게 챙길 수 있어서 만족합니다.” – 이○○ (50대 남성)</blockquote>
+    </section>
+
+    <section id="faq">
+      <h2>자주 묻는 질문 (FAQ)</h2>
+      <h3>Q. 남자암보험 가입 후 언제부터 보장받을 수 있나요?</h3>
+      <p>A. 대부분의 남자암보험 상품은 가입일로부터 90일간의 면책기간이 있습니다. 이 기간 동안 암이 발병하면 진단비를 받을 수 없습니다. 90일 이후부터 보장이 시작되지만, 상품에 따라 1~2년간 진단비의 50%만 지급하는 감액기간이 적용될 수 있습니다.</p>
+      <h3>Q. 고혈압이나 당뇨병이 있어도 가입할 수 있나요?</h3>
+      <p>A. 네, 일반 상품 가입은 어려울 수 있지만 유병자 전용 암보험 상품이 있습니다. 유병자 상품은 고지 의무가 완화되어 있어 가입 조건이 비교적 까다롭지 않습니다. 다만, 보험료는 일반 상품보다 높을 수 있습니다.</p>
+      <h3>Q. 남자암보험 금액은 어떻게 산정되나요?</h3>
+      <p>A. 남자암보험 금액은 가입자의 나이, 성별, 직업, 가입 시점의 건강 상태, 선택한 보장 금액, 보장 기간, 특약 등에 따라 달라집니다. 특히 비갱신형을 선택할 경우 나이에 따라 보험료 차이가 크므로, 30대, 40대 초반에 가입하는 것이 가장 저렴합니다.</p>
+      <h3>Q. 암보험을 여러 개 가입하면 보험료가 더 많이 나가나요?</h3>
+      <p>A. 네, 중복 가입 시 각 보험사별로 보험료를 납부해야 합니다. 하지만 암 진단 시 중복으로 진단비를 받을 수 있기 때문에, 여유가 있다면 보장을 강화하기 위해 중복 가입을 고려할 수 있습니다. 다만, 실손보험과는 달리 암 진단비는 비례 보상이 아닙니다.</p>
+      <h3>Q. 남자암보험 저렴한곳을 찾는 팁이 있나요?</h3>
+      <p>A. 저렴한 곳을 찾으려면 여러 보험사의 상품을 비교해야 합니다. 동일한 보장 내용이라도 보험사별로 보험료 차이가 크게 발생합니다. 또한, 불필요한 특약(입원비, 수술비 등)을 제외하고 진단비 위주로만 구성하는 것이 보험료를 절약하는 방법입니다.</p>
+    </section>
+
+    <!-- 7. 마지막 CTA 및 연락처 정보 -->
+    <section id="final-cta">
+      <h2>현명한 남자암보험 선택, 전문가에게 맡기세요</h2>
+      <p>나에게 가장 적합한 남자암보험을 찾는 것은 복잡한 과정일 수 있습니다. 2026년 최신 상품들의 장단점을 꼼꼼히 분석하여 맞춤형 추천을 받아보세요. 전문 상담사와 함께라면 <span class="point">비갱신형 남자암보험 저렴한곳</span>을 찾을 수 있습니다.</p>
+      <a href="#quote-form" class="cta-btn">📞 지금 바로 1:1 무료 상담 신청</a>
+      <p style="text-align: center; margin-top: 20px;">상담 전화: <strong>010-1234-5678</strong> (24시간 상담 가능)</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 남자암보험 비교 센터. All rights reserved.</p>
+  </footer>
+
+
+  
